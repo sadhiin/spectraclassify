@@ -1,0 +1,4 @@
+Numpy
+Flask
+Flask-Cors
+Pandas
