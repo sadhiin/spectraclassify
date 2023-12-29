@@ -1,4 +1,11 @@
 Numpy
 Flask
 Flask-Cors
-Pandas
+opencv-python
+tqdm
+pyYAML
+mlflow
+notebook
+tensorflow==2.13
+python-box
+ensure
