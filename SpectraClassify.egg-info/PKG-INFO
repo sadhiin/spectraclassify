@@ -1,0 +1,17 @@
+Metadata-Version: 2.1
+Name: SpectraClassify
+Version: 0.0.1
+Summary: SpectraClassify is a python package for zero code image classification within the browser
+Home-page: 
+Author: Sadhin
+Author-email: sadhin.aiub.cse@gmail.com
+Description-Content-Type: text/markdown
+Requires-Dist: tensorflow==2.13
+Requires-Dist: numpy
+Requires-Dist: Pillow
+Requires-Dist: Flask
+Requires-Dist: Flask-Cors
+
+# SpectraClassify - a python package for zero code image classification within the browser
+SpectraClassify is a python package for zero code image classification within the browser. Any can experience the power of deep learning without writing a single line of code and have their trained model.
+

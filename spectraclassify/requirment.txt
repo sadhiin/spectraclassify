@@ -9,3 +9,5 @@ notebook
 tensorflow==2.13
 python-box
 ensure
+Pillow
+- e .

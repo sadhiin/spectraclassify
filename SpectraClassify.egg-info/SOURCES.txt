@@ -1,0 +1,15 @@
+README.md
+setup.py
+SpectraClassify.egg-info/PKG-INFO
+SpectraClassify.egg-info/SOURCES.txt
+SpectraClassify.egg-info/dependency_links.txt
+SpectraClassify.egg-info/requires.txt
+SpectraClassify.egg-info/top_level.txt
+spectraclassify/__init__.py
+spectraclassify/main.py
+spectraclassify/prediction_service.py
+spectraclassify/training_service.py
+spectraclassify/utility/__init__.py
+spectraclassify/utility/configs.py
+spectraclassify/utility/model_utility.py
+spectraclassify/utility/utils.py
