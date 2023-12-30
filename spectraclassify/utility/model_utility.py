@@ -5,6 +5,7 @@ from tensorflow.keras.applications import DenseNet121, DenseNet169, DenseNet201,
 from spectraclassify import logger
 def get_base_model(model_name):
     logger.info(f"Loading pretrained {model_name} model")
+
     _model = None
     if model_name == "ResNet50":
         print(f"Loading pretrained ResNet50 model")
