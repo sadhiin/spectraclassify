@@ -1,3 +1,12 @@
+"""
+This file is responsive for the management of the data passed by the user.
+Such as:
+    - Training and Validation data
+    - Training and Validation with/without data augmentation
+    - Input classes
+    - Preprocess input image for prediction
+"""
+
 import numpy as np
 from spectraclassify import logger
 from spectraclassify.utiliy.config_manager import get_Data_conf
