@@ -16,6 +16,7 @@ img_size = None
 h = None
 w = None
 channels = None
+model_name = None
 epochs = None
 batch_size = None
 augmentation = None
@@ -36,6 +37,7 @@ with open('config.json', 'r') as stream:
         h = int(img_size[0])
         w = int(img_size[1])
         channels = int(img_size[2])
+        model_name = PARAMS['Model_Name']
         epochs = PARAMS['Epochs']
         batch_size = PARAMS['Batch_Size']
         learning_rate = PARAMS['Learning_Rate']
