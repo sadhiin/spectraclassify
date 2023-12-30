@@ -6,8 +6,8 @@ import yaml
 import json
 import warnings
 from spectraclassify import logger
+from spectraclassify.utility.utils import load_json
 
-PARAMS = None
 training_dir = None
 validation_dir = None
 classes = None
@@ -25,30 +25,29 @@ learning_rate = None
 optimizer = None
 loss = None
 
-with open('config.json', 'r') as stream:
-    try:
-        PARAMS = json.load(stream)
-        # user passed configuration data
-        training_dir = PARAMS['Training_Dir']
-        validation_dir = PARAMS['Validation_Dir']
-        classes = PARAMS['Classes']
-        model_name = PARAMS['Model_Name']
-        img_size = PARAMS['Image_Size'].split(',')
-        h = int(img_size[0])
-        w = int(img_size[1])
-        channels = int(img_size[2])
-        model_name = PARAMS['Model_Name']
-        epochs = PARAMS['Epochs']
-        batch_size = PARAMS['Batch_Size']
-        learning_rate = PARAMS['Learning_Rate']
-        augmentation = PARAMS['Augmentation']
-        freeze_layer = PARAMS['Freeze_Layer']
-        optimizer = PARAMS['Optimizer']
-        loss = PARAMS['Loss']
+try:
+    PARAMS = load_json('config.json')
 
-    except yaml.YAMLError as exc:
-        print(exc)
-        logger.error(f"Error loading params.yaml: {exc}")
+    # user passed configuration data
+    training_dir = PARAMS['Training_Dir']
+    validation_dir = PARAMS['Validation_Dir']
+    classes = PARAMS['Classes']
+    model_name = PARAMS['Model_Name']
+    img_size = PARAMS['Image_Size'].split(',')
+    h = int(img_size[0])
+    w = int(img_size[1])
+    channels = int(img_size[2])
+    model_name = PARAMS['Model_Name']
+    epochs = PARAMS['Epochs']
+    batch_size = PARAMS['Batch_Size']
+    learning_rate = PARAMS['Learning_Rate']
+    augmentation = PARAMS['Augmentation']
+    freeze_layer = PARAMS['Freeze_Layer']
+    optimizer = PARAMS['Optimizer']
+    loss = PARAMS['Loss']
+
+except Exception as err:
+    logger.error(f" Error loading config.json: {err}")
 
 
 def get_Data_conf(
