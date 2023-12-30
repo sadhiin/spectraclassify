@@ -7,7 +7,7 @@ Date: 29-dec-2023
 import os
 import sys
 import logging
-import argparse
+import time
 
 logging_str = "[%(asctime)s]: %(levelname)s: %(module)s: %(message)s"
 log_dir = "logs"
@@ -22,3 +22,6 @@ logging.basicConfig(level=logging.INFO,
                     ])
 
 logger = logging.getLogger("spectraclassify")
+
+def get_unique_file_name( prefix: str,ext: str = "log" ):
+    return f"{prefix}_{time.strftime('%Y%m%d_%H%M%S')}.{ext}"
