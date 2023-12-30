@@ -18,6 +18,7 @@ w = None
 channels = None
 epochs = None
 batch_size = None
+augmentation = None
 freeze_layer = None
 learning_rate = None
 optimizer = None
@@ -38,6 +39,7 @@ with open('config.json', 'r') as stream:
         epochs = PARAMS['Epochs']
         batch_size = PARAMS['Batch_Size']
         learning_rate = PARAMS['Learning_Rate']
+        augmentation = PARAMS['Augmentation']
         freeze_layer = PARAMS['Freeze_Layer']
         optimizer = PARAMS['Optimizer']
         loss = PARAMS['Loss']
@@ -47,7 +49,11 @@ with open('config.json', 'r') as stream:
         logger.error(f"Error loading params.yaml: {exc}")
 
 
-def get_Data_conf(training_dir, validation_dir, classes, h, w, channels):
+def get_Data_conf(
+        training_dir=training_dir,
+        validation_dir=validation_dir,
+        classes=classes,
+        h=h, w=w, channels=channels):
     CONFIG = {
         'TRAINING_DIR': training_dir,
         'VALIDATION_DIR': validation_dir,
@@ -58,7 +64,7 @@ def get_Data_conf(training_dir, validation_dir, classes, h, w, channels):
     return CONFIG
 
 
-def get_model_conf():
+def get_model_conf(model_name=model_name, epochs=epochs, learning_rate=learning_rate, optimizer=optimizer, loss=loss):
     CONFIG = {
         'MODEL_NAME': model_name,
         'EPOCHS': epochs,
