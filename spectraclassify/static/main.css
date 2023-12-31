@@ -1,0 +1,19 @@
+.text-bg {
+    background-color: rgb(103, 41, 162);
+    margin-top: 10px;
+    border-radius: 20px;
+    color: white;
+    padding-left: 30%;
+    padding-right: 30%;
+}
+
+.center-sqr-box {
+    background-color: rgb(149, 224, 168);
+    border: 2px rgb(39, 23, 144) solid;
+    border-radius: 8px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 10px;
+}

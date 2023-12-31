@@ -64,11 +64,14 @@ def training():
         logger.info(f"New_trained_model/{saved_model_path}")
         _model.save(saved_model_path)
         print(f"Model saved at the following location : {saved_model_path}")
+        # showing the model performance.
+        show_training_results(saved_model_path, validation_data, False)
+
     except Exception as err:
         logger.error(f"Error int training model: {err}")
 
 
-def show_training_results(model_path: str, val_data, show_results: bool = True):
+def show_training_results(model_path: str, val_data, show_results: bool = False):
     # evaluateing the model
 
     try:

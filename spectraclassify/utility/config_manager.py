@@ -24,9 +24,10 @@ freeze_layer = None
 learning_rate = None
 optimizer = None
 loss = None
-
+__file__ = 'config.json'
 try:
-    PARAMS = load_json('config.json')
+    __path = pathlib.Path(__file__).parent.absolute()
+    PARAMS = load_json(__path)
 
     # user passed configuration data
     training_dir = PARAMS['Training_Dir']
