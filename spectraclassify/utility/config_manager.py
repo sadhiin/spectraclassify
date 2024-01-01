@@ -25,7 +25,8 @@ optimizer = None
 loss = None
 __file__ = 'configs.json'
 try:
-    __path = pathlib.Path.joinpath(pathlib.Path(__file__).parent.absolute(), __file__)
+    __path = pathlib.Path.joinpath(pathlib.Path(
+        __file__).parent.absolute(), __file__)
     print(f"Loading configs.json from {__path}")
     PARAMS = load_json(__path)
 
@@ -33,11 +34,11 @@ try:
     training_dir = PARAMS['Training_Dir']
     validation_dir = PARAMS['Validation_Dir']
     classes = PARAMS['Classes']
-    model_name = PARAMS['Model_Name']
     img_size = PARAMS['Image_Size'].split(',')
     h = int(img_size[0])
     w = int(img_size[1])
     channels = int(img_size[2])
+    model_name = PARAMS['Model_Name']
     epochs = PARAMS['Epochs']
     batch_size = PARAMS['Batch_Size']
     learning_rate = PARAMS['Learning_Rate']
@@ -54,13 +55,14 @@ def get_Data_conf(
         training_dir=training_dir,
         validation_dir=validation_dir,
         classes=classes,
-        h=h, w=w, channels=channels):
+        h=h, w=w, channels=channels, batch_size=batch_size, augmentation=augmentation):
     CONFIG = {
         'TRAINING_DIR': training_dir,
         'VALIDATION_DIR': validation_dir,
         'CLASSES': classes,
         'IMG_SIZE': (h, w, channels),
-        'BATCH_SIZE': batch_size
+        'BATCH_SIZE': batch_size,
+        'AUGMENTATION': augmentation
     }
     return CONFIG
 
@@ -68,11 +70,13 @@ def get_Data_conf(
 def get_model_conf(
         model_name=model_name,
         epochs=epochs,
+        freeze_layer=freeze_layer,
         learning_rate=learning_rate,
         optimizer=optimizer,
         loss=loss):
     CONFIG = {
         'MODEL_NAME': model_name,
+        'Freeze_Layer': freeze_layer,
         'EPOCHS': epochs,
         'LEARNING_RATE': learning_rate,
         'OPTIMIZER': optimizer,

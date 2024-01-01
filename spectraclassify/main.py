@@ -5,9 +5,9 @@ from flask import Flask, render_template, request, redirect, url_for, send_from_
 from flask_cors import CORS, cross_origin
 
 from spectraclassify import logger
-from spectraclassify.utility.config_manager import get_Data_conf, get_model_conf
 from spectraclassify.utility.utils import save_json
-
+from spectraclassify.utility.config_manager import get_Data_conf, get_model_conf
+from spectraclassify.training_service import show_training_results, training
 
 os.putenv('LANG', 'en_US.UTF-8')
 os.putenv('LC_ALL', 'en_US.UTF-8')
@@ -25,9 +25,10 @@ def home():
         config_dict = request.form.to_dict()
         # print(config_dict)
         save_json(path=Path('configs.json'), data=config_dict)
-        print('saving config json file')
-        print("Data config:",get_Data_conf(),"\n")
-        print("Model config:",get_model_conf())
+        logger.info('saving config json file')
+        logger.info('Training started')
+        training()
+        logger.info('Training complete')
     return render_template('home.html')
 
 
