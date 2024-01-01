@@ -76,7 +76,7 @@ def get_model_conf(
         loss=loss):
     CONFIG = {
         'MODEL_NAME': model_name,
-        'Freeze_Layer': freeze_layer,
+        'FREEZE_LAYER': freeze_layer,
         'EPOCHS': epochs,
         'LEARNING_RATE': learning_rate,
         'OPTIMIZER': optimizer,

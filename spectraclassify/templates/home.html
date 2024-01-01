@@ -26,7 +26,17 @@
         </h3>
     </div>
 
-
+    {% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <ul class=flashes>
+    {% for message in messages %}
+    <div class="alert alert-success" role="alert">
+        {{ message }}
+      </div>
+    {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
     <div class="center-sqr-box">
 
         <form action="" method="post" class="row g-3">
