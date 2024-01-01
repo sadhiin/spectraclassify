@@ -16,7 +16,6 @@ img_size = None
 h = None
 w = None
 channels = None
-model_name = None
 epochs = None
 batch_size = None
 augmentation = None
@@ -24,9 +23,10 @@ freeze_layer = None
 learning_rate = None
 optimizer = None
 loss = None
-__file__ = 'config.json'
+__file__ = 'configs.json'
 try:
-    __path = pathlib.Path(__file__).parent.absolute()
+    __path = pathlib.Path.joinpath(pathlib.Path(__file__).parent.absolute(), __file__)
+    print(f"Loading configs.json from {__path}")
     PARAMS = load_json(__path)
 
     # user passed configuration data
@@ -38,7 +38,6 @@ try:
     h = int(img_size[0])
     w = int(img_size[1])
     channels = int(img_size[2])
-    model_name = PARAMS['Model_Name']
     epochs = PARAMS['Epochs']
     batch_size = PARAMS['Batch_Size']
     learning_rate = PARAMS['Learning_Rate']
@@ -48,7 +47,7 @@ try:
     loss = PARAMS['Loss']
 
 except Exception as err:
-    logger.error(f" Error loading config.json: {err}")
+    logger.error(f" Error loading configs.json: {err}")
 
 
 def get_Data_conf(
@@ -66,7 +65,12 @@ def get_Data_conf(
     return CONFIG
 
 
-def get_model_conf(model_name=model_name, epochs=epochs, learning_rate=learning_rate, optimizer=optimizer, loss=loss):
+def get_model_conf(
+        model_name=model_name,
+        epochs=epochs,
+        learning_rate=learning_rate,
+        optimizer=optimizer,
+        loss=loss):
     CONFIG = {
         'MODEL_NAME': model_name,
         'EPOCHS': epochs,

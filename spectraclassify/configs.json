@@ -1,0 +1,14 @@
+{
+    "Training_Dir": "tttt",
+    "Validation_Dir": "ddd",
+    "Classes": "9",
+    "Image_Size": "224, 224, 3",
+    "Model_Name": "Xception",
+    "Freeze_Layer": "True/False",
+    "Batch_Size": "5",
+    "Learning_Rate": "0.001",
+    "Augmentation": "True",
+    "Optimizer": "CategoricalCrossEntroy",
+    "Loss": "Adam",
+    "Epochs": "6"
+}

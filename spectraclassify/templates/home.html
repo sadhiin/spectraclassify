@@ -20,7 +20,7 @@
     <div class="text-bg">
 
         <h1 class="text-center">SpectraClassify</h1>
-        <br>
+        <!-- <br> -->
         <h3 class="text-center">
             Train a image classification model with No CODE...!
         </h3>
@@ -32,16 +32,16 @@
         <form action="" method="post" class="row g-3">
             <div class="col-md-6">
                 <label for="Training_Dir" class="form-label">Training Directory</label>
-                <input type="text" class="form-control" name="Training_Dir" id="Training_Dir">
+                <input type="text" class="form-control" name="Training_Dir" id="Training_Dir" placeholder="Directory path of training samples">
             </div>
             <div class="col-md-6">
                 <label for="Validation_Dir" class="form-label">Validation Directory</label>
-                <input type="text" class="form-control" name="Validation_Dir" id="Validation_Dir">
+                <input type="text" class="form-control" name="Validation_Dir" id="Validation_Dir" placeholder="Directory path of validation samples">
             </div>
 
             <div class="col-md-6">
                 <label for="Classes" class="form-label">Number of Classes</label>
-                <input type="number" class="form-control" min="2" max="1000" name="Classes" id="Classes">
+                <input type="number" class="form-control" min="2" max="1000" name="Classes" id="Classes" placeholder="2 or 3 or 4... ">
             </div>
 
             <div class="col-md-6">
@@ -50,8 +50,8 @@
             </div>
 
             <div class="col-md-6">
-                <label for="inputState" class="form-label">Pretrained Model</label>
-                <select id="inputState" class="form-select">
+                <label for="Model_Name" class="form-label">Pretrained Model</label>
+                <select name="Model_Name" id="Model_Name" class="form-select">
                     <option selected>Choose...</option>
                     <option>ResNet50V2</option>
                     <option>VGG16</option>
@@ -62,32 +62,59 @@
             </div>
 
             <div class="col-md-6">
-                <label for="inputAddress" class="form-label">Address</label>
-                <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St">
+                <label for="Freeze_Layer" class="form-label">Freeze Layer Weights</label>
+                <!-- <input type="text" class="form-control" name="Freeze_Layer" id="Freeze_Layer" placeholder="True / False"> -->
+                <select name="Freeze_Layer" id="Freeze_Layer" class="form-select">
+                    <option selected>True/False</option>
+                    <option>True</option>
+                    <option>False</option>
+
+                </select>
             </div>
-            <div class="col-md-6">
-                <label for="inputAddress2" class="form-label">Address 2</label>
-                <input type="text" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor">
-            </div>
-            <div class="col-md-6">
-                <label for="inputCity" class="form-label">City</label>
-                <input type="text" class="form-control" id="inputCity">
+            <div class="col-md-4">
+                <label for="Batch_Size" class="form-label">Batch Size</label>
+                <input type="number" class="form-control" min="2" max="128" name="Batch_Size" id="Batch_Size">
             </div>
 
-            <div class="col-md-2">
-                <label for="inputZip" class="form-label">Zip</label>
-                <input type="text" class="form-control" id="inputZip">
+            <div class="col-md-4">
+                <label for="Learning_Rate" class="form-label">Learning Rate</label>
+                <input type="number" class="form-control" name="Learning_Rate" value="0.001" id="Learning_Rate"
+                    placeholder="0.1 to 1e-7">
             </div>
-            <div class="col-12">
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="gridCheck">
-                    <label class="form-check-label" for="gridCheck">
-                        Check me out
-                    </label>
-                </div>
+
+            <div class="col-md-4">
+                <label for="Augmentation" class="form-label">Augmentation</label>
+                <select name="Augmentation" id="Augmentation" class="form-select">
+                    <option selected>True/False</option>
+                    <option>True</option>
+                    <option>False</option>
+
+                </select>
             </div>
-            <div class="col-12">
-                <button type="submit" class="btn btn-primary">Sign in</button>
+            <div class="col-md-4">
+                <label for="Optimizer" class="form-label">Optimizer</label>
+                <select name="Optimizer" id="Optimizer" class="form-select">
+                    <option selected>Choose...</option>
+                    <option>CategoricalCrossEntroy</option>
+                    <option>None</option>
+                </select>
+            </div>
+            <div class="col-md-4">
+                <label for="Loss" class="form-label">Loss Function</label>
+                <select name="Loss" id="Loss" class="form-select">
+                    <option selected>Choose...</option>
+                    <option>Adam</option>
+                    <option>RMSprop</option>
+                    <option>SGD</option>
+
+                </select>
+            </div>
+            <div class="col-4">
+                <label for="Epochs" class="form-label">Epochs</label>
+                <input type="number" class="form-control" min="2" max="555" name="Epochs" id="Epochs">
+            </div>
+            <div class="text-center">
+                <button type="submit" class="btn btn-primary">Start-Training</button>
             </div>
         </form>
     </div>
