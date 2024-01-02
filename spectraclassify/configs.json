@@ -8,7 +8,7 @@
     "Batch_Size": "4",
     "Learning_Rate": "0.001",
     "Augmentation": "True",
-    "Optimizer": "CategoricalCrossEntroy",
-    "Loss": "Adam",
+    "Optimizer": "Adam",
+    "Loss": "categorical_crossentropy",
     "Epochs": "2"
 }

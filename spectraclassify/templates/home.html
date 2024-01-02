@@ -27,31 +27,34 @@
     </div>
 
     {% with messages = get_flashed_messages() %}
-  {% if messages %}
+    {% if messages %}
     <ul class=flashes>
-    {% for message in messages %}
-    <div class="alert alert-success" role="alert">
-        {{ message }}
-      </div>
-    {% endfor %}
+        {% for message in messages %}
+        <div class="alert alert-success" role="alert">
+            {{ message }}
+        </div>
+        {% endfor %}
     </ul>
-  {% endif %}
-{% endwith %}
+    {% endif %}
+    {% endwith %}
     <div class="center-sqr-box">
 
         <form action="" method="post" class="row g-3">
             <div class="col-md-6">
                 <label for="Training_Dir" class="form-label">Training Directory</label>
-                <input type="text" class="form-control" name="Training_Dir" id="Training_Dir" placeholder="Directory path of training samples">
+                <input type="text" class="form-control" name="Training_Dir" id="Training_Dir"
+                    placeholder="Directory path of training samples">
             </div>
             <div class="col-md-6">
                 <label for="Validation_Dir" class="form-label">Validation Directory</label>
-                <input type="text" class="form-control" name="Validation_Dir" id="Validation_Dir" placeholder="Directory path of validation samples">
+                <input type="text" class="form-control" name="Validation_Dir" id="Validation_Dir"
+                    placeholder="Directory path of validation samples">
             </div>
 
             <div class="col-md-6">
                 <label for="Classes" class="form-label">Number of Classes</label>
-                <input type="number" class="form-control" min="2" max="1000" name="Classes" id="Classes" placeholder="2 or 3 or 4... ">
+                <input type="number" class="form-control" min="2" max="1000" name="Classes" id="Classes"
+                    placeholder="2 or 3 or 4... ">
             </div>
 
             <div class="col-md-6">
@@ -104,18 +107,19 @@
             <div class="col-md-4">
                 <label for="Optimizer" class="form-label">Optimizer</label>
                 <select name="Optimizer" id="Optimizer" class="form-select">
-                    <option selected>Choose...</option>
-                    <option>CategoricalCrossEntroy</option>
-                    <option>None</option>
+                    <option selected value="None">Choose...</option>
+                    <option value="Adam">Adam</option>
+                    <option value="RMSprop">RMSprop</option>
+                    <option value="SGD">SGD</option>
+
                 </select>
             </div>
             <div class="col-md-4">
                 <label for="Loss" class="form-label">Loss Function</label>
                 <select name="Loss" id="Loss" class="form-select">
-                    <option selected>Choose...</option>
-                    <option>Adam</option>
-                    <option>RMSprop</option>
-                    <option>SGD</option>
+                    <option value="None" selected>Choose...</option>
+                    <option value="categorical_crossentropy">CategoricalCrossEntroy</option>
+
 
                 </select>
             </div>

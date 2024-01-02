@@ -56,14 +56,18 @@ def get_Data_conf(
         validation_dir=validation_dir,
         classes=classes,
         h=h, w=w, channels=channels, batch_size=batch_size, augmentation=augmentation):
-    CONFIG = {
-        'TRAINING_DIR': training_dir,
-        'VALIDATION_DIR': validation_dir,
-        'CLASSES': classes,
-        'IMG_SIZE': (h, w, channels),
-        'BATCH_SIZE': batch_size,
-        'AUGMENTATION': augmentation
-    }
+    try:
+        CONFIG = {
+            'TRAINING_DIR': training_dir,
+            'VALIDATION_DIR': validation_dir,
+            'CLASSES': classes,
+            'IMG_SIZE': (h, w, channels),
+            'BATCH_SIZE': int(batch_size),
+            'AUGMENTATION': augmentation
+        }
+    except Exception as err:
+        logger.error(f"Error in get_Data_conf: {err}")
+        CONFIG = None
     return CONFIG
 
 
@@ -74,12 +78,16 @@ def get_model_conf(
         learning_rate=learning_rate,
         optimizer=optimizer,
         loss=loss):
-    CONFIG = {
-        'MODEL_NAME': model_name,
-        'FREEZE_LAYER': freeze_layer,
-        'EPOCHS': epochs,
-        'LEARNING_RATE': learning_rate,
-        'OPTIMIZER': optimizer,
-        'LOSS': loss
-    }
+    try:
+        CONFIG = {
+            'MODEL_NAME': model_name,
+            'FREEZE_LAYER': freeze_layer,
+            'EPOCHS': int(epochs),
+            'LEARNING_RATE': float(learning_rate),
+            'OPTIMIZER': optimizer,
+            'LOSS': loss
+        }
+    except Exception as err:
+        logger.error(f"Error in get_model_conf: {err}")
+        CONFIG = None
     return CONFIG

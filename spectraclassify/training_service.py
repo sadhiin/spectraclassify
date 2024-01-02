@@ -39,15 +39,15 @@ def training():
 
         logger.info("")
         training_data, validation_data = get_data_generator(
-            training_dir=data_config['Training_Dir'],
-            validation_dir=data_config['Validation_Dir'],
-            batch_size=data_config['Batch_Size'],
-            do_augmentation=data_config['Augmentation'])
+            training_dir=data_config['TRAINING_DIR'],
+            validation_dir=data_config['VALIDATION_DIR'],
+            batch_size=data_config['BATCH_SIZE'],
+            do_augmentation=data_config['AUGMENTATION'])
 
         CBS = get_callbacks()
         steps_per_epoch = training_data.samples // training_data.batch_size
         validation_steps = validation_data.samples // validation_data.batch_size
-        logger.info("Training model")
+        logger.info("Training model started..")
 
         _model.fit(
             training_data,
@@ -59,17 +59,17 @@ def training():
 
         saved_model_path = get_unique_file_name(
             f"{model_conifg['MODEL_NAME']}", "keras")
-
+        os.makedirs('Trained_model', exist_ok=True)
         saved_model_path = os.path.join("Trained_model", saved_model_path)
 
-        logger.info(f"New_trained_model/{saved_model_path}")
+        logger.info(f"New_trained_model path: {saved_model_path}")
         _model.save(saved_model_path)
         print(f"Model saved at the following location : {saved_model_path}")
         # showing the model performance.
         show_training_results(saved_model_path, validation_data, False)
 
     except Exception as err:
-        logger.error(f"Error int training model: {err}")
+        logger.error(f"Error in training model: {err}")
 
 
 def show_training_results(model_path: str, val_data, show_results: bool = False):

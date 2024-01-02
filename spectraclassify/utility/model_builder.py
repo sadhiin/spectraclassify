@@ -52,14 +52,13 @@ def get_model(name: str = model_conifg['MODEL_NAME']):
             x = tf.keras.layers.Dense(128, activation='relu')(x)
 
             # output layer
-            if data_config['Classes'] == 2:
-                logger.info("Binary classification. Added Sigmoid activation")
-                output = tf.keras.layers.Dense(1, activation='sigmoid')(x)
+            if int(data_config['CLASSES']) == 2:
+                logger.info("Binary classification. Adding Sigmoid activation")
+                output = tf.keras.layers.Dense(2, activation='sigmoid')(x)
             else:
-                logger.info(
-                    "Multi-class classification. Added Softmax activation")
+                logger.info(f"Multi-class classification with class number: {data_config['CLASSES']}. Adding Softmax activation")
                 output = tf.keras.layers.Dense(
-                    data_config['Classes'], activation='softmax')(x)
+                    data_config['CLASSES'], activation='softmax')(x)
 
             # defining the model
             final_model = tf.keras.models.Model(
@@ -71,7 +70,8 @@ def get_model(name: str = model_conifg['MODEL_NAME']):
             # compiling the model
             logger.info("Compiling the model")
             final_model.compile(
-                optimizer=model_conifg['OPTIMIZER'],
+                optimizer= tf.keras.optimizers.Adam(learning_rate=model_conifg['LEARNING_RATE']) if model_conifg['OPTIMIZER'] == 'Adam' else tf.keras.optimizers.SGD(
+                    learning_rate=model_conifg['LEARNING_RATE']) if model_conifg['OPTIMIZER'] == 'SGD' else tf.keras.optimizers.RMSprop(learning_rate=model_conifg['LEARNING_RATE']) if model_conifg['OPTIMIZER']=='RMSprop' else None,
                 loss=model_conifg['LOSS'],
                 metrics=['accuracy']
             )
