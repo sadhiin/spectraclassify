@@ -161,3 +161,4 @@ cython_debug/
 *.h5
 *.hdf5
 *.keras
+Tensorboard_logs/*
