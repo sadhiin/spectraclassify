@@ -1,13 +1,13 @@
-Numpy
-Flask
-Flask-Cors
-opencv-python
+numpy==1.24.3
+Flask==3.0.0
+Flask-Cors==4.0.0
+opencv-python==4.8.1.78
 tqdm
 pyYAML
-mlflow
+mlflow==2.9.2
 notebook
 tensorflow==2.13
-python-box
-ensure
-Pillow
+python-box==7.1.1
+ensure==1.0.4
+pillow==10.2.0
 - e .
