@@ -22,11 +22,13 @@ setup(
     long_description_content_type="text/markdown",
     url=f"",
     install_requires=[
-        'tensorflow==2.13',
         'numpy',
+        'tensorflow==2.13',
         'Pillow',
         'Flask',
-        'Flask-Cors'
+        'Flask-Cors',
+        'python-box'
+        'ensure'
     ],
     classifiers=[
     'Development Status :: 3 - Alpha',
