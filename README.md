@@ -1,4 +1,5 @@
-# SpectraClassify - a python package for zero code image classification within the browser
+# SpectraClassify
+## A python package for zero code image classification within the browser
 SpectraClassify is a python package for zero code image classification within the browser. Any can experience the power of deep learning without writing a single line of code and have their trained model.
 
 
@@ -22,15 +23,33 @@ Welcome to SpectraClassify, a cutting-edge Python package that revolutionizes th
 ### Prerequisites
 
 Before you begin, ensure you have the following:
-- Python 3.9 or later.
+- Python 3.10 or later.
 - A modern web browser.
 
 ### Installation
 
 To install SpectraClassify, run the following command:
 
+- Create Anaconda environment
 ```bash
-pip install spectra-classify
+conda create --name spectraclassify python=3.10
+```
+or
+- python virtual enviroment
+
+Windows
+```bash
+python3.10 -m venv spectraclassify
+
+cd venv\Scripts\activate
+```
+Linux + macOS
+```bash
+$ python3.10 -m venv spectraclassify
+source venv/bin/activate
+```
+```bash
+pip install spectraclassify
 ```
 
 ### Launching the Application
