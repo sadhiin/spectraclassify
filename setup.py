@@ -4,7 +4,7 @@ import subprocess
 with open("README.md", "r") as fh:
     desc = fh.read()
 
-__version__ = "0.0.1"
+__version__ = "0.0.2"
 
 REPO_NAME = "SpectraClassify"
 AUTHOOR_NAME = "Sadhin"
@@ -24,10 +24,10 @@ setup(
     install_requires=[
         'numpy',
         'tensorflow==2.13',
-        'Pillow',
+        'pillow',
         'Flask',
         'Flask-Cors',
-        'python-box'
+        'python-box',
         'ensure'
     ],
     classifiers=[
