@@ -5,10 +5,10 @@
     "Image_Size": "224, 224, 3",
     "Model_Name": "VGG16",
     "Freeze_Layer": "True",
-    "Batch_Size": "4",
+    "Batch_Size": "8",
     "Learning_Rate": "0.001",
     "Augmentation": "True",
     "Optimizer": "Adam",
     "Loss": "categorical_crossentropy",
-    "Epochs": "2"
+    "Epochs": "3"
 }
