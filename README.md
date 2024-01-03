@@ -59,6 +59,14 @@ We welcome contributions! If you would like to contribute, please follow these s
 - Push to the branch.
 - Submit a pull request.
 
+## To-Do
+- Design and implement prediction pipeline
+ + Image upload and prediction
+ + Realtime-webcam inferancing
+- Creating dataset (train and val)
+- Custome layer building option
+
+
 ## License
 
 SpectraClassify is released under the [MIT License](LICENSE).

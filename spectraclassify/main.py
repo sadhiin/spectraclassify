@@ -33,6 +33,11 @@ def home():
         logger.info('Training complete')
     return render_template('home.html')
 
+def runnapplication():
+    app.run(host="0.0.0.0", debug=False, use_reloader=False)
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", debug=True, use_reloader=False)
+    """
+        runnapplication() it is a function which is responsible for running the flask application.
+    """
+    runnapplication()
