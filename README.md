@@ -49,25 +49,64 @@ $ python3.10 -m venv spectraclassify
 source venv/bin/activate
 ```
 ```bash
-pip install spectraclassify
+pip install SpectraClassify
 ```
 
-### Launching the Application
+### Launching the Application at local hotst http://127.0.0.1:8080/
 
-After installation, start the application using:
+After installation, start the application using terminal command:
 
 ```bash
-spectra-classify
+run
 ```
 
 This command will open SpectraClassify in your default web browser.
-
+<br>
+<img src="spectraclassify/media/ui.png">
+<br>
 ## Usage
 
-1. **Upload Images**: Drag and drop or select images you want to classify.
-2. **Choose Model**: Select from a list of pre-trained models or train your own.
-3. **Classify**: Click 'Classify' and watch as SpectraClassify predicts the labels.
-4. **Review Results**: Check the classification results in real-time.
+1. **Specify Train data path**: Paste the select training image directory path that you want to trained on.
+2 **Specify Validation data path**: Paste the validation data path.
+3. **Choose Model**: Select from a list of pre-trained models.
+4. **Train**: Click 'Start-Training' and keep eyes on terminal to see the training process.
+5. **Model evaluation Results**: Check the terminal for model evaluation results after taining.
+
+
+## Import in your code <;>
+- After installing
+```bash
+pip install SpectraClassify
+```
+```python
+from spectraclassify.training_service import start_training
+# takes 2 dictornary as input contains model configuration and data configuration
+start_training(
+    model_conifg=model_configurations,
+    data_config=data_configurations)
+
+```
+
+```python
+data_configurations={
+        'TRAINING_DIR': training_dir, # training dataset directory
+        'VALIDATION_DIR': validation_dir, # validation dataset directory
+        'CLASSES': classes, # intiger valud of number of classes
+        'IMG_SIZE': (h, w, channels), # tupple of imaze shape
+        'BATCH_SIZE': int(batch_size), # intiger
+        'AUGMENTATION': bool(augmentation) # boolian
+    }
+
+model_configurations= {
+        'MODEL_NAME': model_name, # string
+        'FREEZE_LAYER': freeze_layer, # boolian
+        'EPOCHS': int(epochs), # intiger
+        'LEARNING_RATE': float(learning_rate), # float
+        'OPTIMIZER': optimizer, # string value of  optimizer funciotn name
+        'LOSS': loss # string value of loss function name
+    }
+
+```
 
 ## Contributing
 
@@ -80,8 +119,8 @@ We welcome contributions! If you would like to contribute, please follow these s
 
 ## To-Do
 - Design and implement prediction pipeline
- + Image upload and prediction
- + Realtime-webcam inferancing
+  + Image upload and prediction
+- Realtime-webcam inferancing
 - Creating dataset (train and val)
 - Custome layer building option
 
@@ -96,7 +135,6 @@ For support, questions, or feedback, please raise an issue in the GitHub reposit
 
 ---
 
-Happy Classifying with SpectraClassify!
-```
+Happy 🙌🏼 custome image Classifying with SpectraClassify!
 
-This README provides a comprehensive guide to help users understand, install, and use SpectraClassify. You can adjust the content to better fit the specifics of your project, such as adding more details about the deep learning models used, or elaborating on the custom model training process.
+*This README provides a comprehensive guide to help users understand, install, and use SpectraClassify package.*
