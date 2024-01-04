@@ -4,7 +4,7 @@ import subprocess
 with open("README.md", "r") as fh:
     desc = fh.read()
 
-__version__ = "0.0.3"
+__version__ = "0.0.4"
 
 REPO_NAME = "SpectraClassify"
 AUTHOOR_NAME = "Sadhin"
@@ -18,9 +18,9 @@ setup(
     author=AUTHOOR_NAME,
     author_email=AUTHOR_EMAIL,
     description="SpectraClassify is a python package for zero code image classification within the browser",
-    long_description = desc,
+    long_description=desc,
     long_description_content_type="text/markdown",
-    url=f"",
+    url=f"https://github.com/sadhiin/spectraclassify",
     install_requires=[
         'numpy==1.24.3',
         'opencv-python==4.8.1.78',
@@ -32,21 +32,21 @@ setup(
         'ensure==1.0.4'
     ],
     classifiers=[
-    'Development Status :: 3 - Alpha',
+        'Development Status :: 3 - Alpha',
 
-    # Indicate who your project is intended for
-    'Intended Audience :: Developers',
-    'Topic :: Software Development :: Build Tools',
+        # Indicate who your project is intended for
+        'Intended Audience :: Developers',
+        'Topic :: Software Development :: Build Tools',
 
-    # Pick your license as you wish
-    'License :: OSI Approved :: MIT License',
+        # Pick your license as you wish
+        'License :: OSI Approved :: MIT License',
 
-    # Specify the Python versions you support here. In particular, ensure
-    # that you indicate whether you support Python 2, Python 3 or both.
-    'Programming Language :: Python :: 3',
-    'Programming Language :: Python :: 3.10',
-  ],
-  entry_points={
+        # Specify the Python versions you support here. In particular, ensure
+        # that you indicate whether you support Python 2, Python 3 or both.
+        'Programming Language :: Python :: 3',
+        'Programming Language :: Python :: 3.10',
+    ],
+    entry_points={
         "console_scripts": [
             "run = spectraclassify.main:runnapplication",
         ]},

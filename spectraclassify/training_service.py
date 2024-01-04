@@ -14,35 +14,44 @@ Such as:
 """
 
 
+
+
 import os
 import sys
 import numpy as np
 import tensorflow as tf
 from spectraclassify import logger, get_unique_file_name
-from spectraclassify.utility.config_manager import get_model_conf, get_Data_conf
-from spectraclassify.utility.data_manager import get_data_generator, preprocess_input_image, input_classes
+from spectraclassify.utility import data_manager
 from spectraclassify.utility.model_builder import get_model
 from spectraclassify.utility.keras_callbacks import get_callbacks
-model_conifg = get_model_conf()
-data_config = get_Data_conf()
 
 
-def training():
+def start_training(model_conifg: dict, data_config: dict):
     try:
         logger.info("Getting model {}".format(model_conifg['MODEL_NAME']))
         print("Getting model {}".format(model_conifg['MODEL_NAME']))
-        _model = get_model(name=model_conifg['MODEL_NAME'])
+
+        _model = get_model(name=model_conifg['MODEL_NAME'],
+                           freeze_layer=model_conifg['FREEZE_LAYER'],
+                           no_of_classes=data_config['CLASSES'],
+                           lr=model_conifg['LEARNING_RATE'],
+                           optimizer_fn_name=model_conifg['OPTIMIZER'],
+                           loss_fn_name=model_conifg['LOSS']
+                           )
+
         if _model is None:
             logger.error("Error loading model")
             print("Error loading model")
             sys.exit(1)
 
         logger.info("")
-        training_data, validation_data = get_data_generator(
+        training_data, validation_data = data_manager.get_data_generator(
             training_dir=data_config['TRAINING_DIR'],
             validation_dir=data_config['VALIDATION_DIR'],
+            target_size=data_config['IMG_SIZE'],
             batch_size=data_config['BATCH_SIZE'],
-            do_augmentation=data_config['AUGMENTATION'])
+            do_augmentation=bool(data_config['AUGMENTATION'])
+        )
 
         CBS = get_callbacks()
         steps_per_epoch = training_data.samples // training_data.batch_size
@@ -62,33 +71,39 @@ def training():
         os.makedirs('Trained_model', exist_ok=True)
         saved_model_path = os.path.join("Trained_model", saved_model_path)
 
-        logger.info(f"New_trained_model path: {saved_model_path}")
+        logger.info(f"Trained model saved path: {saved_model_path}")
         _model.save(saved_model_path)
         print(f"Model saved at the following location : {saved_model_path}")
         # showing the model performance.
-        show_training_results(saved_model_path, validation_data, False)
+        show_training_results(saved_model_path, validation_data, model_conifg, data_config, False)
 
     except Exception as err:
         logger.error(f"Error in training model: {err}")
 
 
-def show_training_results(model_path: str, val_data, show_results: bool = False):
+def show_training_results(model_path: str, val_data: None, model_conifg: dict, data_config: dict, show_results: bool = False):
     # evaluateing the model
 
     try:
-        _classes = input_classes()
+        _classes = data_manager.input_classes(
+            training_dir=data_config['TRAINING_DIR'],
+            batch_size=data_config['BATCH_SIZE'],
+            target_size=data_config['IMG_SIZE'],
+            do_augmentation=bool(data_config['AUGMENTATION'])
+        )
         if val_data:
             logger.info("Loading the trained model {}".format(
                 model_conifg['MODEL_NAME']))
             print("Loading the trained model {}".format(
                 model_conifg['MODEL_NAME']))
         else:
-
-            _, val_data = get_data_generator(
-                training_dir=data_config['Training_Dir'],
-                validation_dir=data_config['Validation_Dir'],
-                batch_size=data_config['Batch_Size'],
-                do_augmentation=False)
+            _, val_data = data_manager.get_data_generator(
+                training_dir=data_config['TRAINING_DIR'],
+                validation_dir=data_config['VALIDATION_DIR'],
+                target_size=data_config['IMG_SIZE'],
+                batch_size=data_config['BATCH_SIZE'],
+                do_augmentation=bool(data_config['AUGMENTATION'])
+            )
 
         _model = tf.keras.models.load_model(model_path)
 

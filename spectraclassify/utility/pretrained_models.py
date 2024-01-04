@@ -64,6 +64,5 @@ def get_pretrained_model(model_name):
         _model = NASNetMobile(include_top=False, weights='imagenet', input_shape=(224, 224, 3))
     else:
         print(f"Unknown model name: {model_name}")
-        # custom model building options here
-        pass
+        raise ValueError(f"Unknown model name: {model_name}")
     return _model

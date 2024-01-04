@@ -13,19 +13,16 @@ import sys
 import numpy as np
 import tensorflow as tf
 from spectraclassify import logger
-from spectraclassify.utility.config_manager import get_model_conf, get_Data_conf
-from spectraclassify.utility.pretrained_models import get_pretrained_model
-
-model_conifg = get_model_conf()
-data_config = get_Data_conf()
+from spectraclassify.utility import pretrained_models
 
 
-def load_pretrain_model(model_name: str = model_conifg['MODEL_NAME']):
+
+def load_pretrain_model(model_name: str):
     try:
         os.makedirs('Models', exist_ok=True)
         logger.info(f"Loading pretrained {model_name} model")
         print(f"Loading pretrained {model_name} model")
-        model = get_pretrained_model(model_name)
+        model = pretrained_models.get_pretrained_model(model_name)
         return model
     except Exception as e:
         logger.error(f"Error loading pretrained model: {e}")
@@ -33,12 +30,12 @@ def load_pretrain_model(model_name: str = model_conifg['MODEL_NAME']):
         return None
 
 
-def get_model(name: str = model_conifg['MODEL_NAME']):
+def get_model(name: str, freeze_layer: bool, no_of_classes: int, lr: float, optimizer_fn_name: str, loss_fn_name: str):
     try:
 
         model = load_pretrain_model(model_name=name)
         if model is not None:
-            if model_conifg['FREEZE_LAYER']:
+            if freeze_layer:
                 for layer in model.layers:
                     if isinstance(layer, tf.keras.layers.BatchNormalization):
                         layer.trainable = True
@@ -52,13 +49,14 @@ def get_model(name: str = model_conifg['MODEL_NAME']):
             x = tf.keras.layers.Dense(128, activation='relu')(x)
 
             # output layer
-            if int(data_config['CLASSES']) == 2:
+            if no_of_classes == 2:
                 logger.info("Binary classification. Adding Sigmoid activation")
                 output = tf.keras.layers.Dense(2, activation='sigmoid')(x)
             else:
-                logger.info(f"Multi-class classification with class number: {data_config['CLASSES']}. Adding Softmax activation")
+                logger.info(
+                    f"Multi-class classification with class number: {no_of_classes}. Adding Softmax activation")
                 output = tf.keras.layers.Dense(
-                    data_config['CLASSES'], activation='softmax')(x)
+                    no_of_classes, activation='softmax')(x)
 
             # defining the model
             final_model = tf.keras.models.Model(
@@ -70,14 +68,14 @@ def get_model(name: str = model_conifg['MODEL_NAME']):
             # compiling the model
             logger.info("Compiling the model")
             final_model.compile(
-                optimizer= tf.keras.optimizers.Adam(learning_rate=model_conifg['LEARNING_RATE']) if model_conifg['OPTIMIZER'] == 'Adam' else tf.keras.optimizers.SGD(
-                    learning_rate=model_conifg['LEARNING_RATE']) if model_conifg['OPTIMIZER'] == 'SGD' else tf.keras.optimizers.RMSprop(learning_rate=model_conifg['LEARNING_RATE']) if model_conifg['OPTIMIZER']=='RMSprop' else None,
-                loss=model_conifg['LOSS'],
+                optimizer=tf.keras.optimizers.Adam(learning_rate=lr) if optimizer_fn_name == 'Adam' else tf.keras.optimizers.SGD(
+                    learning_rate=lr) if optimizer_fn_name == 'SGD' else tf.keras.optimizers.RMSprop(learning_rate=lr) if optimizer_fn_name == 'RMSprop' else None,
+                loss=loss_fn_name,
                 metrics=['accuracy']
             )
 
             logger.info(
-                f"Model compiled with {model_conifg['OPTIMIZER']} optimizer, {model_conifg['LOSS']} loss and accuracy metrics")
+                f"Model compiled with {optimizer_fn_name} optimizer, {loss_fn_name} loss and accuracy metrics")
 
             return final_model
         else:

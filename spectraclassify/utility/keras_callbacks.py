@@ -2,9 +2,9 @@ import os
 import time
 import tensorflow as tf
 from spectraclassify import logger, get_unique_file_name
-from spectraclassify.utility.config_manager import get_model_conf
+# from spectraclassify.utility.config_manager import get_model_conf
 
-model_conifg = get_model_conf()
+# model_conifg = get_model_conf()
 
 
 def get_log_path(DIR="Tensorboard_logs/logs/fit"):

@@ -9,16 +9,14 @@ Such as:
 
 import numpy as np
 from spectraclassify import logger
-from spectraclassify.utility.config_manager import get_Data_conf
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
 from tensorflow.keras.preprocessing import image
 
-userconfig = get_Data_conf()
 
 
 def preprocess_input_image(x):
     try:
-        x = image.load_img(x, target_size=userconfig['IMG_SIZE'][:-1])
+        x = image.load_img(x)
         x = image.img_to_array(x)
         x = np.expand_dims(x, axis=0)
         return x
@@ -27,8 +25,7 @@ def preprocess_input_image(x):
         print(f"Error in preprocess_input_image: {e}")
         return None
 
-
-def data_generator(do_augmentation: bool = userconfig['AUGMENTATION']):
+def data_generator(do_augmentation: bool = True):
     if do_augmentation:
         training_data_generator = ImageDataGenerator(
             rescale=1. / 255,
@@ -48,10 +45,11 @@ def data_generator(do_augmentation: bool = userconfig['AUGMENTATION']):
 
 
 def get_data_generator(
-        training_dir=userconfig['TRAINING_DIR'],
-        validation_dir=userconfig['VALIDATION_DIR'],
-        batch_size=userconfig['BATCH_SIZE'],
-        do_augmentation=userconfig['AUGMENTATION']):
+        training_dir: str,
+        validation_dir: str,
+        batch_size: int,
+        target_size: tuple,
+        do_augmentation: bool):
 
     try:
         training_data_generator, validation_data_generator = data_generator(
@@ -59,14 +57,13 @@ def get_data_generator(
 
         training_generator = training_data_generator.flow_from_directory(
             directory=training_dir,
-            target_size=userconfig['IMG_SIZE'][:-1],
+            target_size=target_size[:-1],
             batch_size=batch_size,
             class_mode='categorical')
 
         validation_generator = validation_data_generator.flow_from_directory(
             directory=validation_dir,
-            target_size=(userconfig['IMG_SIZE'][0],
-                         userconfig['IMG_SIZE'][1]),
+            target_size=target_size[:-1],
             batch_size=batch_size,
             class_mode='categorical')
 
@@ -78,8 +75,12 @@ def get_data_generator(
         return None, None
 
 
-def input_classes():
-    train, val = get_data_generator()
+def input_classes(training_dir: str,
+                  batch_size: int,
+                  target_size: tuple,
+                  do_augmentation: bool):
+    train, val = get_data_generator(
+        training_dir, training_dir, batch_size, target_size, do_augmentation)
     if train is None:
         raise ValueError("Unable to load training data")
 
