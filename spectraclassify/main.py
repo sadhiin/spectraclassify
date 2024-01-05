@@ -29,11 +29,17 @@ def home():
         # print(config_dict)
         save_json(path=Path('configs.json'), data=config_dict)
         logger.info('saving config json file')
+
         logger.info('Training started')
-        mode_configaration = config_manager.get_model_conf()
-        data_configaration = config_manager.get_data_conf()
-        start_training(model_conifg=mode_configaration,
-                       data_config=data_configaration)
+
+        temp_model_path, temp_classes = start_training(
+            model_conifg=config_manager.get_model_conf(),
+            data_config=config_manager.get_data_conf()
+        )
+        global TRAINED_MODEL_PATH, CLASSES
+        TRAINED_MODEL_PATH = temp_model_path
+        CLASSES = temp_classes
+
         flash('Training started. Please wait and check your terminal for more details.')
         logger.info('Training complete')
     return render_template('home.html')

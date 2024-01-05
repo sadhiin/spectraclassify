@@ -13,7 +13,6 @@ from tensorflow.keras.preprocessing.image import ImageDataGenerator
 from tensorflow.keras.preprocessing import image
 
 
-
 def preprocess_input_image(x):
     try:
         x = image.load_img(x)
@@ -24,6 +23,7 @@ def preprocess_input_image(x):
         logger.error(f"Error in preprocess_input_image: {e}")
         print(f"Error in preprocess_input_image: {e}")
         return None
+
 
 def data_generator(do_augmentation: bool = True):
     if do_augmentation:
@@ -78,11 +78,12 @@ def get_data_generator(
 def input_classes(training_dir: str,
                   batch_size: int,
                   target_size: tuple,
-                  do_augmentation: bool):
+                  do_augmentation: bool) -> dict:
     train, val = get_data_generator(
         training_dir, training_dir, batch_size, target_size, do_augmentation)
     if train is None:
         raise ValueError("Unable to load training data")
-
-    print(f"input_classes: {train.class_indices}")
-    return train.class_indices
+    classvalues = {value: key for key, value in train.class_indices.items()}
+    logger.info(f"Input classes: {train.class_indices}")
+    print(f"Input classes: {train.class_indices}")
+    return classvalues
