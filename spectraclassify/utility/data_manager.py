@@ -13,9 +13,9 @@ from tensorflow.keras.preprocessing.image import ImageDataGenerator
 from tensorflow.keras.preprocessing import image
 
 
-def preprocess_input_image(x):
+def preprocess_input_image(x, target_size: tuple = (224, 224, 3)):
     try:
-        x = image.load_img(x)
+        x = image.load_img(x, target_size=target_size)
         x = image.img_to_array(x)
         x = np.expand_dims(x, axis=0)
         return x

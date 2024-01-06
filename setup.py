@@ -4,7 +4,7 @@ import subprocess
 with open("README.md", "r") as fh:
     desc = fh.read()
 
-__version__ = "0.0.4"
+__version__ = "0.0.5"
 
 REPO_NAME = "SpectraClassify"
 AUTHOOR_NAME = "Sadhin"
@@ -22,6 +22,7 @@ setup(
     long_description_content_type="text/markdown",
     url=f"https://github.com/sadhiin/spectraclassify",
     install_requires=[
+        'globals==0.3.36',
         'numpy==1.24.3',
         'opencv-python==4.8.1.78',
         'tensorflow==2.13',

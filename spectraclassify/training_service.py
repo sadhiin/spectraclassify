@@ -24,6 +24,8 @@ from spectraclassify import logger, get_unique_file_name
 from spectraclassify.utility import data_manager
 from spectraclassify.utility.model_builder import get_model
 from spectraclassify.utility.keras_callbacks import get_callbacks
+
+
 def start_training(model_config: dict, data_config: dict) -> tuple[str, dict]:
     """
     Starts the training of the model.
@@ -90,7 +92,7 @@ def start_training(model_config: dict, data_config: dict) -> tuple[str, dict]:
 
 def show_training_results(model_path: str,
                           val_data: None,
-                          model_conifg: dict,
+                          model_config: dict,
                           data_config: dict) -> dict:
 
     try:
@@ -104,9 +106,9 @@ def show_training_results(model_path: str,
         # Loading validation data if not provided
         if not val_data:
             logger.info("Loading the trained model {}".format(
-                model_conifg['MODEL_NAME']))
+                model_config['MODEL_NAME']))
             print("Loading the trained model {}".format(
-                model_conifg['MODEL_NAME']))
+                model_config['MODEL_NAME']))
         else:
             _, val_data = data_manager.get_data_generator(
                 training_dir=data_config['TRAINING_DIR'],

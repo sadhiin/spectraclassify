@@ -8,58 +8,28 @@ import warnings
 from spectraclassify import logger
 from spectraclassify.utility.utils import load_json
 
-training_dir = ""
-validation_dir = ""
-classes = 0
-model_name = ''
-img_size = (0, 0, 0)
-h = 0
-w = 0
-channels = 0
-epochs = 2
-batch_size = 2
-augmentation = False
-freeze_layer = False
-learning_rate = 0.0
-optimizer = ""
 loss = ""
 __file__ = 'configs.json'
-try:
-    __path = pathlib.Path.joinpath(pathlib.Path(
-        __file__).parent.absolute(), __file__)
-    if __path.exists():
-        print(f"Loading configs.json from {__path}")
-    else:
-        __path.write_text("")
-    PARAMS = load_json(__path)
-
-    # user passed configuration data
-    training_dir = pathlib.Path(PARAMS['Training_Dir'])
-    validation_dir = pathlib.Path(PARAMS['Validation_Dir'])
-    classes = int(PARAMS['Classes'])
-    img_size = PARAMS['Image_Size'].split(',')
-    h = int(img_size[0])
-    w = int(img_size[1])
-    channels = int(img_size[2])
-    model_name = PARAMS['Model_Name']
-    epochs = int(PARAMS['Epochs'])
-    batch_size = int(PARAMS['Batch_Size'])
-    learning_rate = float(PARAMS['Learning_Rate'])
-    augmentation = bool(PARAMS['Augmentation'])
-    freeze_layer = bool(PARAMS['Freeze_Layer'])
-    optimizer = PARAMS['Optimizer']
-    loss = PARAMS['Loss']
-
-except Exception as err:
-    logger.error(f" Error loading configs.json: {err}")
 
 
-def get_data_conf(
-        training_dir=training_dir,
-        validation_dir=validation_dir,
-        classes=classes,
-        h=h, w=w, channels=channels, batch_size=batch_size, augmentation=augmentation) -> dict:
+def get_data_conf() -> dict:
     try:
+        __path = pathlib.Path.joinpath(pathlib.Path(
+            __file__).parent.absolute(), __file__)
+        if __path.exists():
+            print(f"Loading configs.json from {__path}")
+        else:
+            __path.write_text("")
+        PARAMS = load_json(__path)
+        training_dir = pathlib.Path(PARAMS['Training_Dir'])
+        validation_dir = pathlib.Path(PARAMS['Validation_Dir'])
+        classes = int(PARAMS['Classes'])
+        img_size = PARAMS['Image_Size'].split(',')
+        h = int(img_size[0])
+        w = int(img_size[1])
+        channels = int(img_size[2])
+        batch_size = int(PARAMS['Batch_Size'])
+        augmentation = bool(PARAMS['Augmentation'])
         CONFIG = {
             'TRAINING_DIR': pathlib.Path(training_dir),
             'VALIDATION_DIR': validation_dir,
@@ -81,14 +51,25 @@ def get_data_conf(
     return CONFIG
 
 
-def get_model_conf(
-        model_name=model_name,
-        epochs=epochs,
-        freeze_layer=freeze_layer,
-        learning_rate=learning_rate,
-        optimizer=optimizer,
-        loss=loss) -> dict:
+def get_model_conf() -> dict:
     try:
+        __path = pathlib.Path.joinpath(pathlib.Path(
+            __file__).parent.absolute(), __file__)
+        if __path.exists():
+            print(f"Loading configs.json from {__path}")
+        else:
+            __path.write_text("")
+        PARAMS = load_json(__path)
+
+        model_name = PARAMS['Model_Name']
+        epochs = int(PARAMS['Epochs'])
+
+        learning_rate = float(PARAMS['Learning_Rate'])
+
+        freeze_layer = bool(PARAMS['Freeze_Layer'])
+        optimizer = PARAMS['Optimizer']
+        loss = PARAMS['Loss']
+
         CONFIG = {
             'MODEL_NAME': model_name,
             'FREEZE_LAYER': freeze_layer,
