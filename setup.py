@@ -4,7 +4,7 @@ import subprocess
 with open("README.md", "r") as fh:
     desc = fh.read()
 
-__version__ = "0.0.5"
+__version__ = "0.0.6"
 
 REPO_NAME = "SpectraClassify"
 AUTHOOR_NAME = "Sadhin"
