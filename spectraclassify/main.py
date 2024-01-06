@@ -8,7 +8,6 @@ import webbrowser
 from threading import Timer
 from flask_cors import CORS, cross_origin
 from flask import Flask, render_template, request, flash, jsonify
-from tensorflow.keras.preprocessing import image
 from spectraclassify.utility import config_manager
 from spectraclassify.utility.utils import save_json, decodeImage
 from spectraclassify.training_service import start_training
@@ -36,7 +35,8 @@ def home():
         logger.info('Training started')
         model_cfg = config_manager.get_model_conf()
         data_cfg = config_manager.get_data_conf()
-        temp_model_path, temp_classes = start_training(model_config=model_cfg, data_config=data_cfg)
+        temp_model_path, temp_classes = start_training(
+            model_config=model_cfg, data_config=data_cfg)
 
         set_trained_model_path(temp_model_path)
         set_classes(temp_classes)
@@ -92,14 +92,14 @@ def analyze():
                                classes=get_classes()).predict(do_preprocess=False, x=x)
 
     # Display the result on the image
-    cv2.putText(img, result, (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2)
+    cv2.putText(img, result, (10, 30),
+                cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2)
 
     # Convert the image back to base64 to send as JSON
     _, buffer = cv2.imencode('.jpg', img)
     jpg_as_text = base64.b64encode(buffer).decode("utf-8")
 
     return jsonify(img_base64=jpg_as_text)
-
 
 
 def open_browser():
@@ -110,7 +110,7 @@ def open_browser():
 def runnapplication():
     # application = UserApplication()
     Timer(1, open_browser).start()
-    app.run(host="127.0.0.1", port=8080, debug=True)
+    app.run(host="127.0.0.1", port=8080, debug=True,  use_reloader=False)
 
 
 if __name__ == "__main__":
