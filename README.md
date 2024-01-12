@@ -52,7 +52,7 @@ source venv/bin/activate
 pip install SpectraClassify
 ```
 
-### Launching the Application at local hotst http://127.0.0.1:8080/
+### Launch the Application at local hotst http://127.0.0.1:8080/
 
 After installation, start the application using terminal command:
 
@@ -61,9 +61,13 @@ run
 ```
 
 This command will open SpectraClassify in your default web browser.
-<br>
-<img src="spectraclassify/media/ui.png">
-<br>
+
+
+![home](spectraclassify/media/ui.png)
+![predict](spectraclassify/media/predict.png)
+![webcam](spectraclassify/media/webam.png)
+
+
 ## Usage
 
 1. **Specify Train data path**: Paste the select training image directory path that you want to trained on.

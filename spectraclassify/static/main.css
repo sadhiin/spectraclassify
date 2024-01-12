@@ -1,10 +1,10 @@
 .text-bg {
     background-color: rgb(103, 41, 162);
     /* margin-top: 10px; */
-    border-radius: 20px;
+    /* border-radius: 20px; */
     color: white;
-    padding-left: 30%;
-    padding-right: 30%;
+    /* padding-left: 30%;
+    padding-right: 30%; */
 }
 
 .center-sqr-box {

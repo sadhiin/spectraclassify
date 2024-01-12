@@ -45,6 +45,7 @@ def home():
         logger.info('Training complete')
     return render_template('home.html')
 
+# have to save the model path in json file
 
 @app.route("/predict", methods=['GET', 'POST'])
 @cross_origin()

@@ -76,8 +76,8 @@ def start_training(model_config: dict, data_config: dict) -> tuple[str, dict]:
 
         saved_model_path = get_unique_file_name(
             f"{model_config['MODEL_NAME']}", "keras")
-        os.makedirs('Trained_model', exist_ok=True)
-        saved_model_path = os.path.join("Trained_model", saved_model_path)
+        # os.makedirs('Trained_model', exist_ok=True)
+        saved_model_path = os.path.join("Models", saved_model_path)
 
         logger.info(f"Trained model saved path: {saved_model_path}")
         _model.save(saved_model_path)

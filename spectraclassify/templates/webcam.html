@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -40,11 +41,13 @@
             align-items: center;
         }
 
-        video, img {
+        video,
+        img {
             margin: 10px;
         }
     </style>
 </head>
+
 <body>
     <div class="container">
         <h1>Webcam-Inference</h1>
@@ -56,6 +59,11 @@
 
         <button onclick="startCamera()">Start Webcam</button>
         <button onclick="stopCamera()">Stop Webcam</button>
+        <br>
+        <a href="{{url_for('home')}}">
+            <button class="btn btn-primary">Home</button></a>
+        <a href="{{ url_for('prediction') }}">
+            <button class="btn btn-primary">Upload and Predict</button></a>
     </div>
 
     <script>
@@ -81,14 +89,16 @@
                     },
                     body: `imageBase64=${encodeURIComponent(imageBase64)}`
                 })
-                .then(response => response.json())
-                .then(data => {
-                    let processedImg = document.getElementById('processedImg');
-                    processedImg.src = "data:image/jpeg;base64," + data.img_base64;
-                    processedImg.style.display = "block";
-                })
-                .catch(error => console.error('Error:', error));
-            }, 50); // Running the prediction every 50 milliseconds
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log("Prediction: ", data.predictions)
+
+                        let processedImg = document.getElementById('processedImg');
+                        processedImg.src = "data:image/jpeg;base64," + data.img_base64;
+                        processedImg.style.display = "block";
+                    })
+                    .catch(error => console.error('Error:', error));
+            }, 100); // Running the prediction every 100 milliseconds
         }
 
         function stopCamera() {
@@ -101,4 +111,5 @@
         }
     </script>
 </body>
+
 </html>

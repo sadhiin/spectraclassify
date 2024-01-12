@@ -37,6 +37,7 @@
     </ul>
     {% endif %}
     {% endwith %}
+    <br>
     <div class="center-sqr-box">
 
         <form action="" method="post" class="row g-3">
@@ -65,7 +66,7 @@
             <div class="col-md-6">
                 <label for="Model_Name" class="form-label">Pretrained Model</label>
                 <select name="Model_Name" id="Model_Name" class="form-select">
-                    <option selected>Choose...</option>
+                    <option value="None" selected>Choose...</option>
                     <option>ResNet50V2</option>
                     <option>VGG16</option>
                     <option>VGG19</option>
@@ -78,7 +79,7 @@
                 <label for="Freeze_Layer" class="form-label">Freeze Layer Weights</label>
                 <!-- <input type="text" class="form-control" name="Freeze_Layer" id="Freeze_Layer" placeholder="True / False"> -->
                 <select name="Freeze_Layer" id="Freeze_Layer" class="form-select">
-                    <option selected>True/False</option>
+                    <option value="True" selected>True/False</option>
                     <option>True</option>
                     <option>False</option>
 
@@ -98,7 +99,7 @@
             <div class="col-md-4">
                 <label for="Augmentation" class="form-label">Augmentation</label>
                 <select name="Augmentation" id="Augmentation" class="form-select">
-                    <option selected>True/False</option>
+                    <option value="None" selected>True/False</option>
                     <option>True</option>
                     <option>False</option>
 
@@ -119,8 +120,6 @@
                 <select name="Loss" id="Loss" class="form-select">
                     <option value="None" selected>Choose...</option>
                     <option value="categorical_crossentropy">CategoricalCrossEntroy</option>
-
-
                 </select>
             </div>
             <div class="col-4">
@@ -133,7 +132,7 @@
         </form>
         <div class="text-center">
             <p>
-                <a href="{{ url_for('prediction') }}" class="btn btn-primary">Predict</a>
+                <a href="{{ url_for('prediction') }}" class="btn btn-primary">Upload & Predict</a>
             </p>
             <p>
                 <a href="{{ url_for('webcam') }}" class="btn btn-primary">Webcam Inference</a>
