@@ -1,14 +1,14 @@
 {
     "Training_Dir": "",
     "Validation_Dir": "",
-    "Classes": "2",
-    "Image_Size": "224,224,3",
-    "Model_Name": "Choose...",
-    "Freeze_Layer": "True/False",
-    "Batch_Size": "8",
+    "Classes": "",
+    "Image_Size": "",
+    "Model_Name": "None",
+    "Freeze_Layer": "True",
+    "Batch_Size": "",
     "Learning_Rate": "0.001",
-    "Augmentation": "True",
+    "Augmentation": "None",
     "Optimizer": "None",
     "Loss": "None",
-    "Epochs": "2"
+    "Epochs": ""
 }

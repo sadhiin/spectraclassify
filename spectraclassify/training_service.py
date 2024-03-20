@@ -27,12 +27,14 @@ from spectraclassify.utility.keras_callbacks import get_callbacks
 
 
 def start_training(model_config: dict, data_config: dict) -> tuple[str, dict]:
-    """
-    Starts the training of the model.
+    """This function is responsible for starting the training of the selected model and given dataset.
 
-    :param model_config: A dictionary containing configuration settings for the model.
-    :param data_config: A dictionary containing configuration settings for the data.
-    :return: A tuple containing trained model path and class indexs.
+    Args:
+        model_config (dict): User chosen model configuration.
+        data_config (dict): User given dataset configuration.
+
+    Returns:
+        tuple[str, dict]: _description_
     """
 
     try:
@@ -64,6 +66,7 @@ def start_training(model_config: dict, data_config: dict) -> tuple[str, dict]:
         CBS = get_callbacks()
         steps_per_epoch = training_data.samples // training_data.batch_size
         validation_steps = validation_data.samples // validation_data.batch_size
+
         logger.info("Training model started..")
 
         _model.fit(
@@ -74,18 +77,23 @@ def start_training(model_config: dict, data_config: dict) -> tuple[str, dict]:
             validation_steps=validation_steps,
             callbacks=CBS)
 
-        saved_model_path = get_unique_file_name(
-            f"{model_config['MODEL_NAME']}", "keras")
+        saved_model_path = get_unique_file_name(f"{model_config['MODEL_NAME']}", "keras")
+
         # os.makedirs('Trained_model', exist_ok=True)
+
         saved_model_path = os.path.join("Models", saved_model_path)
 
         logger.info(f"Trained model saved path: {saved_model_path}")
+
         _model.save(saved_model_path)
         print(f"Model saved at the following location : {saved_model_path}")
+
         # showing the model performance.
-        _classes = show_training_results(
-            saved_model_path, validation_data, model_config, data_config)
+
+        _classes = show_training_results(saved_model_path, validation_data, model_config, data_config)
+
         return saved_model_path, _classes
+
     except Exception as err:
         logger.error(f"Error in training model: {err}")
 

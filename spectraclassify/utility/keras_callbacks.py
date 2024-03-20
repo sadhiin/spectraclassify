@@ -17,13 +17,17 @@ def get_log_path(DIR="Tensorboard_logs/logs/fit"):
 
 
 def get_callbacks():
+    """This function is responsible for creating the callbacks for the model training.
+
+    Returns:
+        callbacks: Returns the callbacks for the model training.
+    """
     log_path = get_log_path()
     os.makedirs('checkpoints', exist_ok=True)
     file_name = os.path.join(
         'checkpoints', get_unique_file_name("model_ckpt", "h5"))
     callbacks = [
-        tf.keras.callbacks.ModelCheckpoint(
-            filepath=file_name, save_best_only=True, monitor='val_loss', mode='min'),
+        tf.keras.callbacks.ModelCheckpoint(filepath=file_name, save_best_only=True, monitor='val_loss', mode='min'),
 
         tf.keras.callbacks.EarlyStopping(
             monitor='val_loss', patience=5, restore_best_weights=True),

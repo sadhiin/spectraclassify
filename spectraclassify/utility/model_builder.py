@@ -18,6 +18,14 @@ from spectraclassify.utility import pretrained_models
 
 
 def load_pretrain_model(model_name: str):
+    """This function is responsible for loading the pretrained model from the keras applications.
+
+    Args:
+        model_name (str): Name of the model to be loaded.
+
+    Returns:
+        model: Returns the loaded tensorflow.keras.models object.
+    """
     try:
         os.makedirs('Models', exist_ok=True)
         logger.info(f"Loading pretrained {model_name} model")
@@ -31,6 +39,22 @@ def load_pretrain_model(model_name: str):
 
 
 def get_model(name: str, freeze_layer: bool, no_of_classes: int, lr: float, optimizer_fn_name: str, loss_fn_name: str):
+    """This function is responsible for creating the model architecture, compiling the model and returning the compiled model.
+
+    Args:
+        name (str): Name of the model to be loaded.
+        freeze_layer (bool): Freezing the pretrained model layers.
+        no_of_classes (int): Number of classes in the dataset.
+        lr (float): Learning rate for the optimizer.
+        optimizer_fn_name (str): Name of the optimizer function.
+        loss_fn_name (str): Name of the loss function.
+
+    Raises:
+        Exception: Raise exception if error occurs while loading the model.
+
+    Returns:
+        finalModel: Return the compiled model with custome layers at end of the model base on the dataset classes.
+    """
     try:
 
         model = load_pretrain_model(model_name=name)
